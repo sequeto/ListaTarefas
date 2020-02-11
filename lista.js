@@ -2,8 +2,7 @@ var listElement = document.querySelector("#aplicacao ul");
 var inputElement = document.querySelector("#entrada");
 var buttonElement = document.querySelector("#botao");
 
-var tarefas = [
-];
+var tarefas = JSON.parse(localStorage.getItem('lista')) || [];
 
 function renderLista(){
 
@@ -35,6 +34,7 @@ function adicionaTarefa(){
     tarefas.push(entrada); // Adiciona no vetor de tarefas o item informado
     inputElement.value = '';
     renderLista();
+    armazenaLista();
 }
 
 buttonElement.onclick = adicionaTarefa;
@@ -42,4 +42,9 @@ buttonElement.onclick = adicionaTarefa;
 function deletaTarefa(posicao){
     tarefas.splice(posicao, 1); // Remove no vetor de tarefas na posição indicada
     renderLista();
+    armazenaLista();
+}
+
+function armazenaLista(){
+    localStorage.setItem('lista', JSON.stringify(tarefas));
 }
